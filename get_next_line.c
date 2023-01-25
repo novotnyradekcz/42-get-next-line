@@ -27,6 +27,8 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (0);
 	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
-	line = ft_strjoin(line, buffer);
+	while(read(fd, buffer, BUFFER_SIZE) == BUFFER_SIZE);
+		line = ft_strjoin(line, buffer);
+	free(buffer);
 	return (line);
 }
