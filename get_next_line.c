@@ -13,14 +13,20 @@
 /*
 TODO: make buffer-size independent - 
 	- read char by char until \n or end of file is encountered
-IDEA: first read line to find it's length, 
-	then malloc and read again, saving into mallocked string 
+IDEA: use strjoin to add buffer-sized strings until we get to a \n,
+	then print
 */
 
-char *get_next_line(int fd)
+#include "get_next_line.h"
+
+char	*get_next_line(int fd)
 {
 	char *buffer;
+	char *line;
 
-
-	return (buffer);
+	if (fd < 0 || BUFFER_SIZE < 1)
+		return (0);
+	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
+	line = ft_strjoin(line, buffer);
+	return (line);
 }
