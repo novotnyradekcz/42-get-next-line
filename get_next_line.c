@@ -6,16 +6,9 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 20:28:35 by rnovotny          #+#    #+#             */
-/*   Updated: 2023/01/26 09:30:28 by rnovotny         ###   ########.fr       */
+/*   Updated: 2023/01/26 10:31:10 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*
-TODO: make buffer-size independent - 
-	- read char by char until \n or end of file is encountered
-IDEA: use strjoin to add buffer-sized strings until we get to a \n,
-	then print
-*/
 
 #include "get_next_line.h"
 
@@ -29,10 +22,14 @@ char	*get_next_line(int fd)
 		return (0);
 	check = 1;
 	buffer = 0;
-	while (check == 1 && line[ft_strlen(line) - 1] != '\n')
+	line = 0;
+	while (check == 1)
 	{
-		check = read_to_buffer(fd, buffer);
-		line = ft_strjoin(line, buffer);
+		buffer = read_to_buffer(fd, buffer);
+		if (buffer)
+			line = ft_strjoin(line, buffer);
+		if (!buffer || buffer[ft_strlen(buffer) - 1] == '\n')
+			check = 0;
 		free(buffer);
 	}
 	return (line);

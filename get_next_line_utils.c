@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 20:29:11 by rnovotny          #+#    #+#             */
-/*   Updated: 2023/01/26 09:30:36 by rnovotny         ###   ########.fr       */
+/*   Updated: 2023/01/26 10:36:40 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,26 @@ size_t	ft_strlen(const char *str)
 	return (n);
 }
 
+char *one_buffer(char const *s)
+{
+	int		len;
+	int		i;
+	char	*joined;
+
+	len = ft_strlen(s);
+	i = 0;
+	joined = (char *)malloc((len + 1) * sizeof(char));
+	if (!joined)
+		return (0);
+	while (i < len)
+	{
+		joined[i] = s[i];
+		i++;
+	}
+	joined[i] = '\n';
+	return (joined);
+}
+
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	int		len1;
@@ -29,13 +49,15 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	int		i;
 	char	*joined;
 
-	if (!s1 || !s2)
-		return (0);
+	if (!s2)
+		return (one_buffer(s1));
+	if (!s1)
+		return (one_buffer(s2));
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
 	i = 0;
 	joined = (char *)malloc((len1 + len2 + 1) * sizeof(char));
-	if (joined == 0)
+	if (!joined)
 		return (0);
 	while (i < len1 + len2)
 	{
@@ -49,18 +71,22 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (joined);
 }
 
-int	read_to_buffer(int fd, char *buffer)
+char	*read_to_buffer(int fd, char *buffer)
 {
 	int		i;
 	int		check;
 
 	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!buffer)
+		return (0);
 	i = 0;
 	check = 1;
-	while (i < BUFFER_SIZE && check == 1 && buffer[i] != '\n')
+	while (i < BUFFER_SIZE && check == 1)
 	{
 		check = read(fd, &buffer[i], 1);
+		if (buffer[i] == '\n')
+			check = 0;
 		i++;
 	}
-	return (check);
+	return (buffer);
 }

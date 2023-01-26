@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 20:29:14 by rnovotny          #+#    #+#             */
-/*   Updated: 2023/01/26 09:31:48 by rnovotny         ###   ########.fr       */
+/*   Updated: 2023/01/26 10:34:05 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@
 # endif
 
 char	*get_next_line(int fd);
-int		read_to_buffer(int fd, char *buffer);
+char	*read_to_buffer(int fd, char *buffer);
 char	*ft_strjoin(char const *s1, char const *s2);
+char	*one_buffer(char const *s);
 size_t	ft_strlen(const char *str);
 
 #endif
