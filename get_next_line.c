@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 20:28:35 by rnovotny          #+#    #+#             */
-/*   Updated: 2023/01/23 22:28:43 by rnovotny         ###   ########.fr       */
+/*   Updated: 2023/01/26 08:56:05 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,17 @@ IDEA: use strjoin to add buffer-sized strings until we get to a \n,
 
 char	*get_next_line(int fd)
 {
-	char *buffer;
-	char *line;
+	char	*buffer;
+	char	*line;
+	int		check;
 
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (0);
-	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
-	while(read(fd, buffer, BUFFER_SIZE) == BUFFER_SIZE);
+	while (check == 1 && line[ft_strlen(line) - 1] != '\n')
+	{
+		buffer = read_to_buffer(fd, buffer);
 		line = ft_strjoin(line, buffer);
-	free(buffer);
+		free(buffer);
+	}
 	return (line);
 }
