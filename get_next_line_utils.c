@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 20:29:11 by rnovotny          #+#    #+#             */
-/*   Updated: 2023/01/26 11:31:52 by rnovotny         ###   ########.fr       */
+/*   Updated: 2023/01/26 13:45:12 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,22 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	}
 	joined[i] = '\0';
 	return (joined);
+}
+
+int	skip_line(int fd)
+{
+	char	parser;
+	int		check;
+
+	parser = 0;
+	check = 1;
+	while (parser != '\n' && check == 1)
+	{
+		check = read(fd, &parser, 1);
+		if (parser == '\0')
+			return (1);
+	}
+	return (0);
 }
 
 char	*read_to_buffer(int fd, char *buffer)
