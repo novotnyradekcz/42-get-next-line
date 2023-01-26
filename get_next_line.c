@@ -6,9 +6,11 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 20:28:35 by rnovotny          #+#    #+#             */
-/*   Updated: 2023/01/26 10:31:10 by rnovotny         ###   ########.fr       */
+/*   Updated: 2023/01/26 11:47:16 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+// TODO: add a static variable to keep ytack of read lines
 
 #include "get_next_line.h"
 
@@ -28,7 +30,7 @@ char	*get_next_line(int fd)
 		buffer = read_to_buffer(fd, buffer);
 		if (buffer)
 			line = ft_strjoin(line, buffer);
-		if (!buffer || buffer[ft_strlen(buffer) - 1] == '\n')
+		if (buffer[0] == '\0' || buffer[ft_strlen(buffer) - 1] == '\n')
 			check = 0;
 		free(buffer);
 	}
