@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 20:28:35 by rnovotny          #+#    #+#             */
-/*   Updated: 2023/01/26 08:56:05 by rnovotny         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:30:28 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,11 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (0);
+	check = 1;
+	buffer = 0;
 	while (check == 1 && line[ft_strlen(line) - 1] != '\n')
 	{
-		buffer = read_to_buffer(fd, buffer);
+		check = read_to_buffer(fd, buffer);
 		line = ft_strjoin(line, buffer);
 		free(buffer);
 	}

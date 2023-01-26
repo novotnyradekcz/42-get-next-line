@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 20:29:11 by rnovotny          #+#    #+#             */
-/*   Updated: 2023/01/26 08:56:59 by rnovotny         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:30:36 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,13 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 int	read_to_buffer(int fd, char *buffer)
 {
-	char	*buffer;
 	int		i;
 	int		check;
 
 	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	i = 0;
 	check = 1;
-	while (i < BUFFER_SIZE && check == 1 && buffer[i] != '\n');
+	while (i < BUFFER_SIZE && check == 1 && buffer[i] != '\n')
 	{
 		check = read(fd, &buffer[i], 1);
 		i++;
