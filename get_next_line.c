@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 20:28:35 by rnovotny          #+#    #+#             */
-/*   Updated: 2023/01/27 11:52:47 by rnovotny         ###   ########.fr       */
+/*   Updated: 2023/01/27 13:22:09 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ char	*get_next_line(int fd)
 		return (0);
 	buffer = 0;
 	mystring = read_to_string(fd, buffer, mystring);
+	if (!mystring || !mystring[0])
+		return (0);
 	i = 0;
 	outputline = (char *)malloc((ft_strlen(mystring, '\n') + 1) * sizeof(char));
 	if (!outputline)
