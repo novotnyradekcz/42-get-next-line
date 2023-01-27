@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 20:28:35 by rnovotny          #+#    #+#             */
-/*   Updated: 2023/01/26 13:45:41 by rnovotny         ###   ########.fr       */
+/*   Updated: 2023/01/27 10:43:17 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,23 @@
 char	*get_next_line(int fd)
 {
 	char		*buffer;
-	static char	*line;
-	int			check;
+	char		*outputline;
+	static char	*mystring;
+	int			i;
 
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (0);
-	check = 1;
 	buffer = 0;
-	while (check == 1)
+	mystring = read_to_string(fd, buffer, mystring);
+	i = 0;
+	outputline = (char *)malloc((ft_strlen(mystring, '\n') + 1) * sizeof(char));
+	while (mystring[i] != '\n' && mystring[i] != '\0')
 	{
-		buffer = read_to_buffer(fd, buffer);
-		if (buffer)
-			line = ft_strjoin(line, buffer);
-		if (buffer[0] == '\0' || buffer[ft_strlen(buffer) - 1] == '\n')
-			check = 0;
-		free(buffer);
+		outputline[i] = mystring[i];
+		i++;
 	}
-	return (line);
+	i++;
+	outputline[i] = '\0';
+	mystring = move_on(mystring);
+	return (outputline);
 }

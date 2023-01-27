@@ -6,22 +6,36 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 20:29:11 by rnovotny          #+#    #+#             */
-/*   Updated: 2023/01/26 13:45:12 by rnovotny         ###   ########.fr       */
+/*   Updated: 2023/01/27 11:00:28 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *str)
+size_t	ft_strlen(const char *str, char end)
 {
 	int	n;
 
 	if (!str)
 		return (0);
 	n = 0;
-	while (str[n] != 0)
+	while (str[n] != '\0' && str[n] != end)
 		n++;
 	return (n);
+}
+
+int	ft_strchr(const char *s, int c)
+{
+	int		i;
+
+	i = 0;
+	while (s[i] != 0)
+	{
+		if (s[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
@@ -31,8 +45,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	int		i;
 	char	*joined;
 
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
+	len1 = ft_strlen(s1, '\0');
+	len2 = ft_strlen(s2, '\0');
 	i = 0;
 	joined = (char *)malloc((len1 + len2 + 1) * sizeof(char));
 	if (!joined)
@@ -49,23 +63,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (joined);
 }
 
-int	skip_line(int fd)
-{
-	char	parser;
-	int		check;
-
-	parser = 0;
-	check = 1;
-	while (parser != '\n' && check == 1)
-	{
-		check = read(fd, &parser, 1);
-		if (parser == '\0')
-			return (1);
-	}
-	return (0);
-}
-
-char	*read_to_buffer(int fd, char *buffer)
+char	*read_to_string(int fd, char *buffer, char *str)
 {
 	int		i;
 	int		check;
@@ -74,14 +72,35 @@ char	*read_to_buffer(int fd, char *buffer)
 	if (!buffer)
 		return (0);
 	i = 0;
-	check = 1;
-	while (i < BUFFER_SIZE && check == 1)
+	check = BUFFER_SIZE;
+	while (check == BUFFER_SIZE)
 	{
-		check = read(fd, &buffer[i], 1);
-		if (buffer[i] == '\n')
+		check = read(fd, buffer, BUFFER_SIZE);
+		buffer[check] = '\0';
+		if (ft_strchr(buffer, '\n'))
 			check = 0;
+		str = ft_strjoin(str, buffer);
+	}
+	free(buffer);
+	return (str);
+}
+
+char	*move_on(char *str)
+{
+	char	*new;
+	int		i;
+
+	new = (char *)malloc((ft_strlen(str, '\0') - ft_strlen(str, '\n')) * sizeof(char));
+	// printf("Inside move_on: %zu\n", ft_strlen(str, '\0'));
+	// printf("Inside move_on: %zu\n", ft_strlen(str, '\n'));
+	i = 0;
+	while (str[ft_strlen(str, '\n') + i + 1] != '\0')
+	{
+		new[i] = str[ft_strlen(str, '\n') + i + 1];
 		i++;
 	}
-	buffer[i] = '\0';
-	return (buffer);
+	new[i] = '\0';
+	// printf("Inside move_on: %s", new);
+	free(str);
+	return (new);
 }
