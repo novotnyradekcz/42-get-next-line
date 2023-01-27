@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 20:29:11 by rnovotny          #+#    #+#             */
-/*   Updated: 2023/01/27 11:00:28 by rnovotny         ###   ########.fr       */
+/*   Updated: 2023/01/27 11:51:24 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	ft_strchr(const char *s, int c)
 {
 	int		i;
 
+	if (!s)
+		return (0);
 	i = 0;
 	while (s[i] != 0)
 	{
@@ -63,6 +65,27 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (joined);
 }
 
+char	*move_on(char *str)
+{
+	char	*new;
+	int		i;
+	int		len;
+
+	len = ft_strlen(str, '\n');
+	new = (char *)malloc((ft_strlen(str, '\0') - len) * sizeof(char));
+	if (!new)
+		return (0);
+	i = 0;
+	while (str[len + i + 1] != '\0')
+	{
+		new[i] = str[len + i + 1];
+		i++;
+	}
+	new[i] = '\0';
+	free(str);
+	return (new);
+}
+
 char	*read_to_string(int fd, char *buffer, char *str)
 {
 	int		i;
@@ -72,7 +95,10 @@ char	*read_to_string(int fd, char *buffer, char *str)
 	if (!buffer)
 		return (0);
 	i = 0;
-	check = BUFFER_SIZE;
+	if (ft_strchr(str, '\n'))
+			check = 0;
+	else
+		check = BUFFER_SIZE;
 	while (check == BUFFER_SIZE)
 	{
 		check = read(fd, buffer, BUFFER_SIZE);
@@ -83,24 +109,4 @@ char	*read_to_string(int fd, char *buffer, char *str)
 	}
 	free(buffer);
 	return (str);
-}
-
-char	*move_on(char *str)
-{
-	char	*new;
-	int		i;
-
-	new = (char *)malloc((ft_strlen(str, '\0') - ft_strlen(str, '\n')) * sizeof(char));
-	// printf("Inside move_on: %zu\n", ft_strlen(str, '\0'));
-	// printf("Inside move_on: %zu\n", ft_strlen(str, '\n'));
-	i = 0;
-	while (str[ft_strlen(str, '\n') + i + 1] != '\0')
-	{
-		new[i] = str[ft_strlen(str, '\n') + i + 1];
-		i++;
-	}
-	new[i] = '\0';
-	// printf("Inside move_on: %s", new);
-	free(str);
-	return (new);
 }
