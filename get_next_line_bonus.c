@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 20:28:35 by rnovotny          #+#    #+#             */
-/*   Updated: 2023/01/27 13:23:46 by rnovotny         ###   ########.fr       */
+/*   Updated: 2023/01/28 15:49:53 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*get_next_line(int fd)
 	if (!mystring[fd] || !mystring[fd][0])
 		return (0);
 	i = 0;
-	outputline = (char *)malloc((ft_strlen(mystring[fd], '\n') + 1) * sizeof(char));
+	outputline = malloc((ft_strlen(mystring[fd], '\n') + 1) * sizeof(char));
 	if (!outputline)
 		return (0);
 	while (mystring[fd][i] != '\n' && mystring[fd][i] != '\0')
