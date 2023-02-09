@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 20:29:11 by rnovotny          #+#    #+#             */
-/*   Updated: 2023/01/27 13:24:59 by rnovotny         ###   ########.fr       */
+/*   Updated: 2023/02/09 16:15:19 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_strchr(const char *s, int c)
 	return (0);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	int		len1;
 	int		len2;
@@ -62,6 +62,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		i++;
 	}
 	joined[i] = '\0';
+	free(s1);
 	return (joined);
 }
 
