@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 20:29:11 by rnovotny          #+#    #+#             */
-/*   Updated: 2023/02/10 12:01:56 by rnovotny         ###   ########.fr       */
+/*   Updated: 2023/02/10 12:08:04 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,10 @@ char	*read_to_string(int fd, char *buffer, char *str)
 	{
 		check = read(fd, buffer, BUFFER_SIZE);
 		if (check < 0)
+		{
+			free(buffer);
 			return (0);
+		}
 		i = check - 1;
 		while (i++ < BUFFER_SIZE)
 			buffer[i] = '\0';
