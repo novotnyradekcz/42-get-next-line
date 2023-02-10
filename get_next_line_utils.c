@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 20:29:11 by rnovotny          #+#    #+#             */
-/*   Updated: 2023/02/09 17:16:58 by rnovotny         ###   ########.fr       */
+/*   Updated: 2023/02/10 11:50:28 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ char	*move_on(char *str)
 	int		len;
 
 	len = ft_strlen(str, '\n');
+	if (len == (int)ft_strlen(str, '\0'))
+		return (0);
 	new = (char *)malloc((ft_strlen(str, '\0') - len) * sizeof(char));
 	if (!new)
 		return (0);
