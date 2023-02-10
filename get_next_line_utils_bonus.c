@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 20:29:11 by rnovotny          #+#    #+#             */
-/*   Updated: 2023/02/10 12:10:11 by rnovotny         ###   ########.fr       */
+/*   Updated: 2023/02/10 13:16:29 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ char	*ft_strjoin(char *s1, char *s2)
 	i = 0;
 	joined = (char *)malloc((len1 + len2 + 1) * sizeof(char));
 	if (!joined)
+	{
+		free(s1);
 		return (0);
+	}
 	while (i < len1 + len2)
 	{
 		if (i < len1)
@@ -74,7 +77,10 @@ char	*move_on(char *str)
 
 	len = ft_strlen(str, '\n');
 	if (len == (int)ft_strlen(str, '\0'))
+	{
+		free(str);
 		return (0);
+	}
 	new = (char *)malloc((ft_strlen(str, '\0') - len) * sizeof(char));
 	if (!new)
 		return (0);
