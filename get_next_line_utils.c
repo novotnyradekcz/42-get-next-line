@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 20:29:11 by rnovotny          #+#    #+#             */
-/*   Updated: 2023/02/10 13:14:16 by rnovotny         ###   ########.fr       */
+/*   Updated: 2023/02/10 13:26:46 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		i++;
 	}
 	joined[i] = '\0';
-	if (s1)
-		free(s1);
+	free(s1);
 	return (joined);
 }
 
@@ -99,7 +98,6 @@ char	*move_on(char *str)
 char	*read_to_string(int fd, char *buffer, char *str)
 {
 	int	check;
-	int	i;
 
 	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
@@ -116,9 +114,7 @@ char	*read_to_string(int fd, char *buffer, char *str)
 			free(buffer);
 			return (0);
 		}
-		i = check - 1;
-		while (i++ < BUFFER_SIZE)
-			buffer[i] = '\0';
+		buffer[check] = '\0';
 		if (ft_strchr(buffer, '\n'))
 			check = 0;
 		str = ft_strjoin(str, buffer);
