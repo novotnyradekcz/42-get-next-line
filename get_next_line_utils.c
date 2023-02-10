@@ -6,7 +6,7 @@
 /*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 20:29:11 by rnovotny          #+#    #+#             */
-/*   Updated: 2023/02/10 11:50:28 by rnovotny         ###   ########.fr       */
+/*   Updated: 2023/02/10 12:01:56 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ char	*move_on(char *str)
 
 char	*read_to_string(int fd, char *buffer, char *str)
 {
-	int		check;
+	int	check;
+	int	i;
 
 	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
@@ -105,7 +106,9 @@ char	*read_to_string(int fd, char *buffer, char *str)
 		check = read(fd, buffer, BUFFER_SIZE);
 		if (check < 0)
 			return (0);
-		buffer[check] = '\0';
+		i = check - 1;
+		while (i++ < BUFFER_SIZE)
+			buffer[i] = '\0';
 		if (ft_strchr(buffer, '\n'))
 			check = 0;
 		str = ft_strjoin(str, buffer);
