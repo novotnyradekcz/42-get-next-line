@@ -95,9 +95,10 @@ char	*move_on(char *str)
 	return (new);
 }
 
-char	*read_to_string(int fd, char *buffer, char *str)
+char	*read_to_string(int fd, char *str)
 {
-	int	check;
+	int		check;
+	char	*buffer;
 
 	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)

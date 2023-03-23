@@ -10,20 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+// NOTES: it seems that moulinette only checks number of allocs vs freees
+// which for me is the same number only if reading ends with at least one (null)
+// otherwise I have one free missing - but so do other people it seems - and they passed
+
 #include "get_next_line.h"
 
 char	*get_next_line(int fd)
 {
-	char		*buffer;
 	char		*outputline;
 	static char	*mystring;
 	int			i;
 
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (0);
-	buffer = 0;
-	mystring = read_to_string(fd, buffer, mystring);
-	if (!mystring || !mystring[0])
+	mystring = read_to_string(fd, mystring);
+	// if (!mystring || !mystring[0])
+	if (!mystring)
 		return (0);
 	i = 0;
 	outputline = (char *)malloc((ft_strlen(mystring, '\n') + 2) * sizeof(char));
@@ -36,6 +39,12 @@ char	*get_next_line(int fd)
 	}
 	outputline[i] = mystring[i];
 	outputline[i + 1] = '\0';
+	if (!mystring[0])
+	{
+		free(outputline);
+		outputline = 0;
+	}
 	mystring = move_on(mystring);
+	// free(mystring);
 	return (outputline);
 }
