@@ -83,7 +83,10 @@ char	*move_on(char *str)
 	}
 	new = (char *)malloc((ft_strlen(str, '\0') - len) * sizeof(char));
 	if (!new)
+	{
+		free(str);
 		return (0);
+	}
 	i = 0;
 	while (str[len + i + 1] != '\0')
 	{
@@ -95,9 +98,10 @@ char	*move_on(char *str)
 	return (new);
 }
 
-char	*read_to_string(int fd, char *buffer, char *str)
+char	*read_to_string(int fd, char *str)
 {
-	int	check;
+	int		check;
+	char	*buffer;
 
 	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)

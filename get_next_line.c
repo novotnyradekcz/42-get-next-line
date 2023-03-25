@@ -10,11 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// NOTES: it seems that moulinette only checks number of allocs vs freees
-// which for me is the same number only if reading ends with at least one (null)
-// otherwise I have one free missing
-// but so do other people it seems - and they passed
-
 #include "get_next_line.h"
 
 char	*output_line(char *mystr)
