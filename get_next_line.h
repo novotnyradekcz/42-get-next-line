@@ -21,6 +21,7 @@
 # endif
 
 char	*get_next_line(int fd);
+char	*output_line(char *mystr);
 char	*move_on(char *str);
 char	*read_to_string(int fd, char *str);
 char	*ft_strjoin(char *s1, char *s2);

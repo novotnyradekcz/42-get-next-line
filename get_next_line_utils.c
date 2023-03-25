@@ -83,7 +83,10 @@ char	*move_on(char *str)
 	}
 	new = (char *)malloc((ft_strlen(str, '\0') - len) * sizeof(char));
 	if (!new)
+	{
+		free(str);
 		return (0);
+	}
 	i = 0;
 	while (str[len + i + 1] != '\0')
 	{
