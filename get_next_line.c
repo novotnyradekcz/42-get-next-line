@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnovotny <rnovotny@student.42prague.com    +#+  +:+       +#+        */
+/*   By: rnovotny <rnovotny@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 20:28:35 by rnovotny          #+#    #+#             */
-/*   Updated: 2023/03/07 17:40:47 by rnovotny         ###   ########.fr       */
+/*   Updated: 2023/04/30 15:24:42 by rnovotny         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ char	*get_next_line(int fd)
 	mystring = read_to_string(fd, mystring);
 	if (!mystring)
 		return (0);
-	outputline = output_line(mystring);
+	if (!mystring[0])
+		outputline = 0;
+	else
+		outputline = output_line(mystring);
 	mystring = move_on(mystring);
 	return (outputline);
 }
